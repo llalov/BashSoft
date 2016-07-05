@@ -33,12 +33,26 @@ namespace BashSoft
             {
                 string[] tokens = input.Split(' ');
                 string course = tokens[0];
-                string students = tokens[1];
+                string student = tokens[1];
                 int mark = int.Parse(tokens[2]);
 
-                //TODO: Add the course and the student if they don't exist
-                //TODO: Add the mark
+                if (!studentsByCourse.ContainsKey(course))
+                { 
+                    studentsByCourse.Add(course, new Dictionary<string, List<int>>());
+                }
+
+                if (!studentsByCourse[course].ContainsKey(student))
+                {
+                    studentsByCourse[course].Add(student, new List<int>());
+                }
+
+                studentsByCourse[course][student].Add(mark);
+
+                input = Console.ReadLine();
             }
+
+            isDataInitialized = true;
+            OutputWriter.WriteMessageOnNewLine("Data read!");
         }
     }
 }
