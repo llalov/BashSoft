@@ -8,9 +8,11 @@ namespace BashSoft
 {
     class Launcher
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            IOManager.TraverseDirectory(@"D:\Pictures");
+            //IOManager.TraverseDirectory(@"D:\Pictures");
+            StudentsRepository.InitializeData();
+            StudentsRepository.GetAllStudentsFromCourse("Unity");
         }
     }
 }

@@ -54,5 +54,57 @@ namespace BashSoft
             isDataInitialized = true;
             OutputWriter.WriteMessageOnNewLine("Data read!");
         }
+
+        private static bool IsQueryForCoursePossible(string courseName)
+        {
+            if (isDataInitialized)
+            {
+                if (studentsByCourse.ContainsKey(courseName))
+                {
+                    return true;
+                }
+                else
+                {
+                    OutputWriter.DisplayException(ExceptionMessages.InexistingCourseInDataBase);
+                }
+            }
+            else
+            {
+                OutputWriter.DisplayException(ExceptionMessages.DataNotInitializedExceptionMessage);
+            }
+            return false;
+        }
+
+        private static bool IsQueryForStudentPossible(string courseName, string studentUserName)
+        {
+            if (IsQueryForCoursePossible(courseName) && studentsByCourse[courseName].ContainsKey(studentUserName))
+            {
+                return true;
+            }
+            else
+            {
+                OutputWriter.DisplayException(ExceptionMessages.InexistingStudentInDataBase);
+            }
+            return false;
+        }
+
+        public static void GetStudentScoresFromCourse (string courseName, string userName)
+        {
+            if (IsQueryForStudentPossible(courseName,userName))
+            {
+                OutputWriter.DisplayStudent(new KeyValuePair<string, List<int>>(userName, studentsByCourse[courseName][userName]));
+            }
+        }
+        public static void GetAllStudentsFromCourse (string courseName)
+        {
+            if (IsQueryForCoursePossible(courseName))
+            {
+                OutputWriter.WriteMessageOnNewLine($"{courseName}:");
+                foreach (var studentMarksEntry in studentsByCourse[courseName])
+                {
+                    OutputWriter.DisplayStudent(studentMarksEntry);
+                }
+            }
+        }
     }
 }
