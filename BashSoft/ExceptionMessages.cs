@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BashSoft
+﻿namespace BashSoft
 {
     public static class ExceptionMessages
     {
@@ -15,7 +9,5 @@ namespace BashSoft
         public const string InexistingStudentInDataBase = "The user name for the student you are trying to get does not exist!";
 
         public const string InexistingCourseInDataBase = "The course you are trying to get does not exist in the database";
-
-
     }
 }
