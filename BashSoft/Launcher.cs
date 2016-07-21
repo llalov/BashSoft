@@ -4,18 +4,10 @@
     {
         static void Main()
         {
+            InputReader.StartReadingCommands();
             //IOManager.CreateDirectoryInCurrentFolder("*2");
-
             //IOManager.ChangeCurrentDirectoryAbsolute(@"C:\Windows\LiveKernelReports");
-            IOManager.ChangeCurrentDirectoryRelative("..");
-            IOManager.ChangeCurrentDirectoryRelative("..");
-            IOManager.ChangeCurrentDirectoryRelative("..");
-            IOManager.ChangeCurrentDirectoryRelative("..");
-            IOManager.ChangeCurrentDirectoryRelative("..");
-            IOManager.ChangeCurrentDirectoryRelative("..");
-            IOManager.ChangeCurrentDirectoryRelative("..");
-            IOManager.ChangeCurrentDirectoryRelative("..");
-
+            //IOManager.ChangeCurrentDirectoryRelative("..");
             //IOManager.TraverseDirectory();
             //IOManager.ShowDirectory();
             //StudentsRepository.InitializeData();

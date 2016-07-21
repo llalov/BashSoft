@@ -13,6 +13,7 @@ namespace BashSoft
             Queue<string> subFolders = new Queue<string>();
             subFolders.Enqueue(SessionData.currentPath);
 
+            OutputWriter.WriteMessageOnNewLine("*********************************************************************************");
             while(subFolders.Count != 0)
             {
                 string currentPath = subFolders.Dequeue();
@@ -25,6 +26,7 @@ namespace BashSoft
                 }
                 OutputWriter.WriteMessageOnNewLine(string.Format("{0}{1}", new string('-', identation), currentPath));
             }
+            OutputWriter.WriteMessageOnNewLine("*********************************************************************************");
         }
 
         public static void ShowDirectory()
@@ -66,9 +68,9 @@ namespace BashSoft
             }
         }
 
-        public static void ChangeCurrentDirectoryRelative(string relativaPath)
+        public static void ChangeCurrentDirectoryRelative(string relativePath)
         {
-            if (relativaPath == "..")
+            if (relativePath == "..")
             {
                 try
                 {
@@ -86,8 +88,17 @@ namespace BashSoft
             else
             {
                 string currentPath = SessionData.currentPath;
-                currentPath += "\\" + relativaPath;
-                ChangeCurrentDirectoryAbsolute(currentPath);
+                relativePath = relativePath.TrimStart('\\');
+                currentPath += '\\' + relativePath;
+                currentPath = currentPath.TrimEnd('/', '\\');
+                if (Directory.Exists(currentPath))
+                {
+                    ChangeCurrentDirectoryAbsolute(currentPath);
+                }
+                else
+                {
+                    OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
+                }
             }
         }
 

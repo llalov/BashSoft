@@ -19,5 +19,11 @@
         public const string ForbiddenSymbolsContainedInName = "The given name contains symbols that are not allowed to be used in names of files and folders.";
 
         public const string UnableToGoHigherInPartitionHierarchy = "Unable to go higher in partition hierarchy.";
+
+        public const string InvalidCommandParams = "The number of parameters passes is incorrect.";
+
+        public const string InvalidCommand = "Invalid command.";
+
+        public const string UnNeededParameters = " takes no parameters.";
     }
 }

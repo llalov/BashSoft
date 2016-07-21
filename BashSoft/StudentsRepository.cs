@@ -91,6 +91,7 @@ namespace BashSoft
                 OutputWriter.DisplayStudent(new KeyValuePair<string, List<int>>(userName, studentsByCourse[courseName][userName]));
             }
         }
+
         public static void GetAllStudentsFromCourse (string courseName)
         {
             if (IsQueryForCoursePossible(courseName))
