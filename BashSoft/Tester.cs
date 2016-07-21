@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace BashSoft
 {
@@ -6,18 +7,25 @@ namespace BashSoft
     {
         public static void CompareContent(string userOutputPath, string expectedOutputPath)
         {
-            OutputWriter.WriteMessageOnNewLine("Reading files...");
-     
-            string mismatchPath = GetMismatchPath(expectedOutputPath);
+            try
+            {
+                OutputWriter.WriteMessageOnNewLine("Reading files...");
 
-            string[] actualOutputLines = File.ReadAllLines(userOutputPath);
-            string[] expectedOutputLines = File.ReadAllLines(expectedOutputPath);
+                string mismatchPath = GetMismatchPath(expectedOutputPath);
 
-            bool hasMismatch;
-            string[] mismatches = GetLinesWithPossibleMissmatches(actualOutputLines, expectedOutputLines, out hasMismatch);
+                string[] actualOutputLines = File.ReadAllLines(userOutputPath);
+                string[] expectedOutputLines = File.ReadAllLines(expectedOutputPath);
 
-            PrintOutput(mismatches, hasMismatch, mismatchPath);
-            OutputWriter.WriteMessageOnNewLine("Files read!");
+                bool hasMismatch;
+                string[] mismatches = GetLinesWithPossibleMissmatches(actualOutputLines, expectedOutputLines, out hasMismatch);
+
+                PrintOutput(mismatches, hasMismatch, mismatchPath);
+                OutputWriter.WriteMessageOnNewLine("Files read!");
+            }
+            catch (FileNotFoundException)
+            {
+                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
+            }
         }
 
         private static string GetMismatchPath (string expectedOutputPath)
@@ -33,9 +41,19 @@ namespace BashSoft
             string output = string.Empty;
             hasMismatch = false;
 
-            string[] mismatches = new string[expectedOutputLines.Length];
             OutputWriter.WriteMessageOnNewLine("Comparing files...");
-            for (int i = 0; i < actualOtputLines.Length; i++)
+            int minOutputLines = actualOtputLines.Length;
+
+            if (actualOtputLines.Length != expectedOutputLines.Length)
+            {
+                hasMismatch = true;
+                minOutputLines = Math.Min(actualOtputLines.Length, expectedOutputLines.Length);
+                OutputWriter.DisplayException(ExceptionMessages.ComparisonOfFilesWithDifferentSizes);       
+            }
+
+            string[] mismatches = new string[minOutputLines];
+
+            for (int i = 0; i < minOutputLines; i++)
             {
                 string actualLine = actualOtputLines[i];
                 string expectedLine = expectedOutputLines[i];

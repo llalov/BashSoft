@@ -4,12 +4,23 @@
     {
         static void Main()
         {
-            //IOManager.CreateDirectoryInCurrentFolder("lucho");
-            //IOManager.TraverseDirectory(2);
-            IOManager.ShowDirectory();
+            //IOManager.CreateDirectoryInCurrentFolder("*2");
+
+            //IOManager.ChangeCurrentDirectoryAbsolute(@"C:\Windows\LiveKernelReports");
+            IOManager.ChangeCurrentDirectoryRelative("..");
+            IOManager.ChangeCurrentDirectoryRelative("..");
+            IOManager.ChangeCurrentDirectoryRelative("..");
+            IOManager.ChangeCurrentDirectoryRelative("..");
+            IOManager.ChangeCurrentDirectoryRelative("..");
+            IOManager.ChangeCurrentDirectoryRelative("..");
+            IOManager.ChangeCurrentDirectoryRelative("..");
+            IOManager.ChangeCurrentDirectoryRelative("..");
+
+            //IOManager.TraverseDirectory();
+            //IOManager.ShowDirectory();
             //StudentsRepository.InitializeData();
             //StudentsRepository.GetAllStudentsFromCourse("Unity");
-            //Tester.CompareContent(@"C:\Users\Lucho\Desktop\Advanced C#\New folder\test2.txt", @"C:\Users\Lucho\Desktop\Advanced C#\New folder\test3.txt");
+            //Tester.CompareContent(@"C:\Users\Lucho\Desktop\Advanced C#\New folder\actual.txt", @"C:\Users\Lucho\Desktop\Advanced C#\New folder\expected.txt");
 
         }
     }
