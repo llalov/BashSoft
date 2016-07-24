@@ -25,5 +25,9 @@
         public const string InvalidCommand = "Invalid command.";
 
         public const string UnNeededParameters = " takes no parameters.";
+
+        public const string InvalidURL = "The URL entered is invalid!";
+
+        public const string MissingURL = "Missing URL address.";
     }
 }

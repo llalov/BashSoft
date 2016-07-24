@@ -6,7 +6,7 @@
         {
             InputReader.StartReadingCommands();
             //IOManager.CreateDirectoryInCurrentFolder("*2");
-            //IOManager.ChangeCurrentDirectoryAbsolute(@"C:\Windows\LiveKernelReports");
+            //IOManager.ChangeCurrentDirectoryAbsolute(@"C:\Users\Lucho\Desktop");
             //IOManager.ChangeCurrentDirectoryRelative("..");
             //IOManager.TraverseDirectory();
             //IOManager.ShowDirectory();

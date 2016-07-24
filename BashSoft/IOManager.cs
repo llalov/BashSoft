@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System;
+using System.Net;
 
 namespace BashSoft
 {
@@ -85,7 +86,7 @@ namespace BashSoft
                 }
                 
             }
-            else
+            else if (!Directory.Exists(relativePath))
             {
                 string currentPath = SessionData.currentPath;
                 relativePath = relativePath.TrimStart('\\');
@@ -100,6 +101,14 @@ namespace BashSoft
                     OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
                 }
             }
+            else if (Directory.Exists(relativePath))
+            {
+                ChangeCurrentDirectoryAbsolute(relativePath);
+            }
+            else
+            {
+                OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
+            }
         }
 
         public static void ChangeCurrentDirectoryAbsolute(string absolutePath)
@@ -110,6 +119,43 @@ namespace BashSoft
             }
 
             SessionData.currentPath = absolutePath;
+        }
+
+        public static void DownloadFile(string url)
+        {
+            url = url.Trim(' ');
+            try
+            {
+                int indexOfLastSlash = url.LastIndexOf('/');
+                string fileName = url.Substring(indexOfLastSlash + 1);
+                var currentDir = SessionData.currentPath;
+
+                WebRequest request = WebRequest.Create(url);
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                if (response != null || response.StatusCode == HttpStatusCode.OK)
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        var uri = new Uri(url);
+                        client.DownloadFileAsync(uri, currentDir + "\\" + fileName);
+                        OutputWriter.WriteMessageOnNewLine("Download complete.");
+                    }
+                }
+                else
+                {
+                    OutputWriter.DisplayException(ExceptionMessages.InvalidURL);
+                }
+            }
+            catch (Exception e)
+            {
+                OutputWriter.DisplayException(e.Message);
+            }
+        }
+
+        public static void OpenFile(string url)
+        {
+
         }
     }
 }

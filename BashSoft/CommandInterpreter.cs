@@ -12,6 +12,8 @@ namespace BashSoft
         {
             string[] data = input.Split(' ');
             string command = data[0];
+            int indexOfFirstSpace = input.IndexOf(' ');
+            string inputAfterCommand = input.Substring(indexOfFirstSpace + 1);
 
             switch (command)
             {
@@ -25,16 +27,18 @@ namespace BashSoft
                         OutputWriter.DisplayException(ExceptionMessages.InvalidCommandParams);
                     }
                     break;
+
                 case "ls":
                     if (data.Length  == 1)
                     {
-                        IOManager.TraverseDirectory();
+                        IOManager.ShowDirectory();
                     }
                     else
                     {
                         OutputWriter.DisplayException(command + ExceptionMessages.UnNeededParameters);
                     }
                     break;
+
                 case "clear":
                     if (data.Length == 1)
                     {
@@ -45,16 +49,41 @@ namespace BashSoft
                         OutputWriter.DisplayException(command + ExceptionMessages.UnNeededParameters);
                     }
                     break;
+
                 case "cd":
-                    if (data.Length == 2)
+                    if (data.Length >= 2)
                     {
-                        IOManager.ChangeCurrentDirectoryRelative(data[1]);
+
+                        IOManager.ChangeCurrentDirectoryRelative(inputAfterCommand);
                     }
                     else
                     {
                         OutputWriter.DisplayException(command + ExceptionMessages.InvalidCommandParams);
                     }
                     break;
+
+                case "readDb":
+                    StudentsRepository.InitializeData(inputAfterCommand);
+                    break;
+
+                case "filter":
+                    if (data.Length == 2)
+                    {
+                        StudentsRepository.GetAllStudentsFromCourse(data[1]);
+                    }
+                    break;
+
+                case "download":
+                    if (data.Length > 1)
+                    {
+                        IOManager.DownloadFile(inputAfterCommand);
+                    }
+                    else
+                    {
+                        OutputWriter.DisplayException(ExceptionMessages.MissingURL);
+                    }
+                    break;
+
                 default:
                     OutputWriter.DisplayException(ExceptionMessages.InvalidCommand);
                     break;
