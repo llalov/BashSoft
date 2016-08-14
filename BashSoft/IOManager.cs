@@ -62,6 +62,7 @@ namespace BashSoft
             {
                 string path = SessionData.currentPath + "\\" + folderName;
                 Directory.CreateDirectory(path);
+                SessionData.currentPath = path;
             }
             catch (ArgumentException)
             {
@@ -153,9 +154,55 @@ namespace BashSoft
             }
         }
 
-        public static void OpenFile(string url)
+        public static void OpenFile(string userInput)
         {
+            var trimedUserInput = userInput.Trim();
+            try
+            {
+                if (File.Exists(trimedUserInput) || Directory.Exists(trimedUserInput))
+                {
+                    System.Diagnostics.Process.Start(trimedUserInput);
+                }
 
+                else if (!Directory.Exists(trimedUserInput) || !File.Exists(trimedUserInput)) 
+                {
+                    var absolutePath = SessionData.currentPath;
+                    absolutePath += '\\' + trimedUserInput;
+
+                    if (File.Exists(absolutePath) || Directory.Exists(absolutePath))
+                    {
+                        System.Diagnostics.Process.Start(absolutePath);
+                    }
+                    else
+                    {
+                        OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
+                        OutputWriter.WriteMessageOnNewLine(absolutePath);
+                    }
+                }
+                
+            }
+            catch (Exception e)
+            {
+                OutputWriter.DisplayException(e.Message);
+            }
+        }
+
+        public static void Help()
+        {
+            OutputWriter.WriteMessageOnNewLine("************************************************************************************************************************");
+            OutputWriter.WriteMessageOnNewLine("cd..                            'Returns one directory back.'");
+            OutputWriter.WriteMessageOnNewLine("cd <absolute path>              'Changes current directory by an absolute path.'");
+            OutputWriter.WriteMessageOnNewLine("cd <folder name>                'Changes current directory to a folder that existst in it.'");
+            OutputWriter.WriteMessageOnNewLine("mkdir <folder name>             'Creates a folder in the current directory.'");
+            OutputWriter.WriteMessageOnNewLine("ls                              'Lists all files and folders in the current directory.'");
+            OutputWriter.WriteMessageOnNewLine("open <file name/folder name>    'Opens a file or directory. Can be used also with absolute paths.'");
+            OutputWriter.WriteMessageOnNewLine("download <url>                  'Downloads a file to the current directory.'");
+            OutputWriter.WriteMessageOnNewLine("readDb                          'Reads a txt file in the current directory in the folowing format: http:\\github.com\'");
+            OutputWriter.WriteMessageOnNewLine("filter <course name>            'Returns all the students from the folowing course. (Example file: )'");
+            OutputWriter.WriteMessageOnNewLine("clear                           'Clear the console window.'");
+            OutputWriter.WriteMessageOnNewLine("quit                            'Exit the console window.'");
+            OutputWriter.WriteMessageOnNewLine("help                            'Lists all the commands with their descriptions.'");
+            OutputWriter.WriteMessageOnNewLine("************************************************************************************************************************");
         }
     }
 }

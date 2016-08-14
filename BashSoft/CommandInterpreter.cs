@@ -84,6 +84,27 @@ namespace BashSoft
                     }
                     break;
 
+                case "open":
+                    if (data.Length == 2)
+                    {
+                        IOManager.OpenFile(data[1]);
+                    }
+                    else
+                    {
+                        OutputWriter.DisplayException(ExceptionMessages.MissingURL);
+                    }
+                    break;
+                case "help":
+                    if(data.Length == 1)
+                    {
+                        IOManager.Help();
+                    }
+                    else
+                    {
+                        OutputWriter.DisplayException(command + ExceptionMessages.UnNeededParameters);
+                    }
+                    break;
+
                 default:
                     OutputWriter.DisplayException(ExceptionMessages.InvalidCommand);
                     break;
