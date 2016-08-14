@@ -197,8 +197,8 @@ namespace BashSoft
             OutputWriter.WriteMessageOnNewLine("ls                              'Lists all files and folders in the current directory.'");
             OutputWriter.WriteMessageOnNewLine("open <file name/folder name>    'Opens a file or directory. Can be used also with absolute paths.'");
             OutputWriter.WriteMessageOnNewLine("download <url>                  'Downloads a file to the current directory.'");
-            OutputWriter.WriteMessageOnNewLine("readDb                          'Reads a txt file in the current directory in the folowing format: http:\\github.com\'");
-            OutputWriter.WriteMessageOnNewLine("filter <course name>            'Returns all the students from the folowing course. (Example file: )'");
+            OutputWriter.WriteMessageOnNewLine("readDb                          'Reads a txt file in the current directory in the folowing format: https://github.com/llalov/BashSoft/blob/master/data.txt'");
+            OutputWriter.WriteMessageOnNewLine("filter <course name>            'Returns all the students from the folowing course.(Example file: https://github.com/llalov/BashSoft/blob/master/data.txt)'");
             OutputWriter.WriteMessageOnNewLine("clear                           'Clear the console window.'");
             OutputWriter.WriteMessageOnNewLine("quit                            'Exit the console window.'");
             OutputWriter.WriteMessageOnNewLine("help                            'Lists all the commands with their descriptions.'");
