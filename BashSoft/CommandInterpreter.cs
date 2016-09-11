@@ -104,6 +104,12 @@ namespace BashSoft
                         OutputWriter.DisplayException(command + ExceptionMessages.UnNeededParameters);
                     }
                     break;
+                case "summarizeEmails":
+                    if (data.Length == 2)
+                    {
+                        PremiumMobileRepository.SummarizeEmails(data[1]);
+                    }
+                    break;
 
                 default:
                     OutputWriter.DisplayException(ExceptionMessages.InvalidCommand);
