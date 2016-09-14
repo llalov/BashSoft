@@ -104,7 +104,7 @@ namespace BashSoft
                         OutputWriter.DisplayException(command + ExceptionMessages.UnNeededParameters);
                     }
                     break;
-                case "summarizeEmails":
+                case "s":
                     if (data.Length == 2)
                     {
                         PremiumMobileRepository.SummarizeEmails(data[1]);
